@@ -2,12 +2,16 @@ package Project_Files;
 
 public class CPU {
     private Process currentProcess; // the current process that is executed
-    public CPU() {currentProcess = null; } // initially no process is executed
+    private double IO_propability;
+    
+    public CPU(){currentProcess = null;} // initially no process is executed
+    
+    
     public Process getCurrentProcess() { return currentProcess;}
     public void dispatch(Process process) {currentProcess = process;} // add a process to CPU
     public CPUProcessStatus execute(int i){ // execute a process
         if (currentProcess != null){  // if there is a process in CPU
-            boolean IO = Math.random() < 0.7; // randomly select if that process needs IO
+            boolean IO = Math.random() < IO_propability; // randomly select if that process needs IO 
             currentProcess.run(i); // we execute the process
             currentProcess.updateInputOutput(IO); // and update the status of IO
             currentProcess.updateServiceTime(i); // and the service time
@@ -18,4 +22,16 @@ public class CPU {
     }
 
 
+    
+     public void setIO_propability(double IO_propability){
+       this.IO_propability=IO_propability;
+     }
+     
+     
+     public double getIO_propability(){
+       return IO_propability;
+   }
+     
+
+    
 }

@@ -21,6 +21,7 @@ public class Process {
     public int getTurnAroundTime() {return serviceTime - timeArrival; }
 
     public void updateInputOutput(boolean IO) {inputOutput = IO;}
+    public boolean getIO(){return inputOutput;}
     public int getPriority() {return priority;}
     public int getExecutionTime() {return executionTime;}
     public void run(int i){

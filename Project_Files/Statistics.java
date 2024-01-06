@@ -4,6 +4,7 @@ public class Statistics {
     private int numberOfProcesses;
     private int totalTurnAroundTime;
     private int totalResponseTime;
+   
 
     public Statistics(){
         numberOfProcesses = totalResponseTime = totalTurnAroundTime = 0;

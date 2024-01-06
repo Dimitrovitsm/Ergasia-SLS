@@ -4,7 +4,7 @@ public class Scheduler {
     private CPU cpu;
     private final Queue mainList;
     private final Queue blockedList;
-    private int quantum;
+    private int quantum,initquantum;
 
     private final Statistics statistics;
 
@@ -13,7 +13,7 @@ public class Scheduler {
         this.mainList = mainList;
         this.blockedList = blockedList;
         this.statistics = statistics;
-        initializeQuantum();
+        //initializeQuantum();
     }
 
     public void scheduleNewProcess(Process process){
@@ -45,8 +45,20 @@ public class Scheduler {
     }
 
     private void initializeQuantum(){
-        quantum = 4;
+          quantum = initquantum;
     }
+    
+    
+    public void setIO_propability(int quantum){
+       this.quantum=quantum;
+       initquantum=quantum;
+       
+     }
+     
+     
+    public double getIO_propability(){
+       return quantum;
+   }
 
     private void updateStatistics(){
         statistics.increaseTotalResponseTime(cpu.getCurrentProcess().getResponseTime());
