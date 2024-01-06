@@ -1,4 +1,4 @@
-package ergasia_sls;
+package Project_Files;
 
 public class CPU {
     private Process currentProcess; // the current process that is executed

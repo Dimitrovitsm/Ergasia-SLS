@@ -1,4 +1,4 @@
-package ergasia_sls;
+package Project_Files;
 
 public class Process {
     private final int timeArrival;

@@ -1,4 +1,4 @@
-package ergasia_sls;
+package Project_Files;
 
 public class Statistics {
     private int numberOfProcesses;
