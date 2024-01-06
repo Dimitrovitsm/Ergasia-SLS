@@ -86,6 +86,8 @@ public class Scheduler {
 
         if (status == CPUProcessStatus.IO_STATUS){  // if the process needs IO
             blockedList.insert(cpu.getCurrentProcess()); // move the process from CPU to blocked queue
+            statistics.increasetotalIOneeded();
+            
             cpu.dispatch(null); // and make the CPU available for other process
         }else if (status == CPUProcessStatus.COMPLETED_STATUS){ // if the process has been completed
             updateStatistics(); // update the statistics
