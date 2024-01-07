@@ -10,8 +10,9 @@ Instructions
 
 1)All the files should be on the same folder in order of the program to fuction correctly     
 2)The program is advised to run on the Netbeans IDE enviroment     
-3)When running the program you will be greeted with a message saying if you would like to use the default values that were used to run the simulation or put custom ones of your liking.You would have to answer with a y/n.      
-4)If you selected "y" the code will run automatically with no more inputs from the user.If you selected "n" the user is needed to submit 4 parameters so the simulation can run.  
+3)When running the program you will be greeted with a message saying if you would like to use the default values that were used to run the simulation or put custom ones of your liking.You would have to answer with a y/n.        
+4)If you selected "y" the code will run automatically with no more inputs from the user.If you selected "n" the user is needed to submit 4 parameters so the simulation can run.     
+5)After all that the simulation runs and outputs the number of processes that were created ,the number of times the I/O was used ,the Average Response time and the Average Turnaround time.    
 
      
 
