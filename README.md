@@ -6,7 +6,7 @@ Participants
 Γλαύκη Μαλούτα Μέλλιου ΑΜ:2021081
 
 
-Istructions     
+Instructions     
 
 1)All the files should be on the same folder in order of the program to fuction correctly     
 2)The program is advised to run on the Netbeans IDE enviroment     
