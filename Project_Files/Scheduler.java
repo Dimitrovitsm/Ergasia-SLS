@@ -1,10 +1,14 @@
 package Project_Files;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Scheduler {
     private CPU cpu;
     private final Queue mainList;
     private final Queue blockedList;
     private int quantum,initquantum;
+    private List<Process> finishedProcesses;
 
     private final Statistics statistics;
 
@@ -13,11 +17,13 @@ public class Scheduler {
         this.mainList = mainList;
         this.blockedList = blockedList;
         this.statistics = statistics;
+        finishedProcesses=new ArrayList<>();
         //initializeQuantum();
     }
 
     public void scheduleNewProcess(Process process){
         mainList.insert(process); // every time a new process is created, scheduler add it to the main queue
+        
     }
 
     private void moveFromBlockedToMainList(){
@@ -65,6 +71,7 @@ public class Scheduler {
         statistics.increaseTotalTurnAroundTime(cpu.getCurrentProcess().getTurnAroundTime());
     }
 
+
     private CPUProcessStatus executeInCPU(int i){
         CPUProcessStatus status;
         // if CPU doesn't run any process and there are processes in Queue
@@ -83,7 +90,9 @@ public class Scheduler {
     public boolean scheduling(int i){
         moveFromBlockedToMainList(); // first check if there is a process that have to be moved in main queue from blocked queue
         CPUProcessStatus status = executeInCPU(i); // make a cycle in CPU
-
+        
+       
+        
         if (status == CPUProcessStatus.IO_STATUS){  // if the process needs IO
             blockedList.insert(cpu.getCurrentProcess()); // move the process from CPU to blocked queue
             statistics.increasetotalIOneeded();
@@ -91,6 +100,7 @@ public class Scheduler {
             cpu.dispatch(null); // and make the CPU available for other process
         }else if (status == CPUProcessStatus.COMPLETED_STATUS){ // if the process has been completed
             updateStatistics(); // update the statistics
+            finishedProcesses.add(cpu.getCurrentProcess());
             cpu.dispatch(null); // make the CPU available for use.
         }else if (status == CPUProcessStatus.RUNNING_STATUS){ // if the process is still running
             if (quantum == 0 && mainList.getSize() > 0){ // but the quantum has reached
@@ -106,4 +116,8 @@ public class Scheduler {
         return hasJob(); // if there is another job to be done returns false.
     }
 
+    
+    
+    
+    public List<Process> getfinishedProcesses(){return finishedProcesses;};
 }

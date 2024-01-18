@@ -1,6 +1,9 @@
 package Project_Files;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+
+import java.util.List;
+
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +17,7 @@ public class Main {
         int quantum=0;
         double spawn_probability=0,IO_propability=0;
         String option;
+        String option_io = null;
         
         do{
           System.out.println("User default parameters or custom? (y/n): ");  
@@ -36,9 +40,9 @@ public class Main {
         
         
            do{
-             System.out.println("Set probability of the Proccess needing I/O (between 0.1-0.9): ");
+             System.out.println("Set probability of the Proccess needing I/O (between 0.1-0.9 or 0 to remove I/O completely): ");
              IO_propability=UserInput.getDouble();
-           }while(IO_propability<0.1 || IO_propability>0.9);
+           }while(IO_propability<0 && IO_propability>0.9);
            myCPU.setIO_propability(IO_propability);
           
           
@@ -50,22 +54,33 @@ public class Main {
         }
         else if(option.equals("y"))
         {
-           timeInSeconds=1000;
-           spawn_probability=0.5;
-           IO_propability=0.7;
-           quantum=4;
-           myCPU.setIO_propability(IO_propability);
-           myScheduler.setIO_propability(quantum);
+            
+           System.out.println("Have I/O? (y/n): ");
+             option_io=UserInput.getString();  
+           }while(!(option_io.equals("y") || option_io.equals("n")));
            
-           System.out.println("Default values loaded");
-           System.out.println("Time in seconds:1000");
-           System.out.println("Process Creation probability:0.5");
-           System.out.println("Process needing I/O probability:0.7");
-           System.out.println("Quantum for the Round Robin Algorithm:4");
-           System.out.println(" ");
+           if(option_io.equals("n")){
+             IO_propability=0;
+             }
+           else if(option_io.equals("y")){
+             IO_propability=0.7;
+           }
+             timeInSeconds=20;
+             spawn_probability=0.5;
+             quantum=4;
+             myCPU.setIO_propability(IO_propability);
+             myScheduler.setIO_propability(quantum);
+           
+             System.out.println("Default values loaded");
+             System.out.println("Time in seconds:20");
+             System.out.println("Process Creation probability:0.5");
+             System.out.println("Process needing I/O probability:"+IO_propability);
+             System.out.println("Quantum for the Round Robin Algorithm:4");
+             System.out.println(" ");
  
            
-        }
+        
+
         
         int i=0;
         while (!isCompleted || i < timeInSeconds){
@@ -74,13 +89,27 @@ public class Main {
                 if (spawnProcess){
                     int execution_time = (int) ((Math.random() * (10-5))+ 2);
                     int priority = (int) ((Math.random() * 5));
-                    Process newProcess = new Process(i, execution_time,priority);
+                    String name="p"+i;
+                    Process newProcess = new Process(name,i, execution_time,priority);
                     myScheduler.scheduleNewProcess(newProcess);
                     myStatistics.increaseNumberOfProcesses();
+                   
                 }
             }
+            
             i++;
             isCompleted = !myScheduler.scheduling(i);
+        }
+        System.out.println(" ");
+        List<Process> finishedProcesses = myScheduler.getfinishedProcesses();
+        for(Process p: finishedProcesses){
+           System.out.println("Process:"+p.getprocessname());
+           System.out.println("Priority:"+p.getPriority());
+           System.out.println("Time Arrival: " + p.getArrivalTime());
+           System.out.println("Time Service: " + p.getServiceTime());
+           System.out.println("Turnaround Time: " + p.getTurnAroundTime());
+           System.out.println("Response Time: " + p.getResponseTime());
+           System.out.println("---------------------------------------------------------");
         }
         myStatistics.printStatistics();
     }

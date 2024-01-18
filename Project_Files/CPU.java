@@ -11,6 +11,8 @@ public class CPU {
     public void dispatch(Process process) {currentProcess = process;} // add a process to CPU
     public CPUProcessStatus execute(int i){ // execute a process
         if (currentProcess != null){  // if there is a process in CPU
+            System.out.println(currentProcess.getprocessname()+" is executed");
+            
             boolean IO = Math.random() < IO_propability; // randomly select if that process needs IO 
             currentProcess.run(i); // we execute the process
             currentProcess.updateInputOutput(IO); // and update the status of IO

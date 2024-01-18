@@ -1,6 +1,7 @@
 package Project_Files;
 
 public class Process {
+    private String idd;
     private final int timeArrival;
     private int serviceTime;
     private int executionTime;
@@ -8,7 +9,8 @@ public class Process {
     private int responseTime;
     boolean inputOutput;
 
-    public Process(int ta, int et, int pr){
+    public Process(String idd,int ta, int et, int pr){
+        this.idd=idd;
         timeArrival = ta;
         executionTime = et;
         priority = pr;
@@ -16,6 +18,8 @@ public class Process {
         responseTime = -1;
     }
 
+    public int getArrivalTime() { return timeArrival; }
+    public int getServiceTime() { return serviceTime; }
     public void updateServiceTime(int st) { serviceTime = st; }
     public int getResponseTime() {return responseTime - timeArrival; }
     public int getTurnAroundTime() {return serviceTime - timeArrival; }
@@ -28,4 +32,10 @@ public class Process {
         if (responseTime == -1) responseTime = i;
         executionTime--;
     }
+    
+    public String getprocessname(){
+       return idd;
+    }
+    
+  
 }
